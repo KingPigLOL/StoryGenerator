@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Generator</title>
+</head>
+<body>
+    <input type="button" onclick="newstory()" style="position:absolute;bottom: 0;left: 10%; width: 100px; height: 50px; text-align: center;" value="New Story" >
+    <input type="number" placeholder="Font Size" onchange="fontchange(this.value)" style="position:absolute;bottom: 0;left: 80%; width: 100px; height: 50px; text-align: center;">
+</body>
+<script>
+//     var Nstory = document.createElement('button');
+//     Nstory.innerHTML = 'New story';
+// document.body.appendChild(Nstory);
+// Nstory.style.position = 'absolute';
+// Nstory.style.bottom = '0';
+// Nstory.style.left = '30%';
+// Nstory.onclick = 'newstory()'
+    const xhr = new XMLHttpRequest();
+    const url = "https://shortstories-api.onrender.com/"
+    
+    xhr.onload = function() {
+        data = JSON.parse(this.response);
+        box.innerHTML = '' 
+        box.innerHTML = `${data['title']} <br>` 
+        box.innerHTML += 'by ' + data['author'] + '<br>'
+
+        
+        box.innerHTML += data['story']
+        box.style.height = 'auto';
+    }
+    function newstory() {
+        xhr.open('GET', url, true);
+        xhr.send()
+    }
+    function fontchange(number) {
+        box.style.fontSize = `${number}px`
+    }
+    
+
+
+
+
+
+    /* make a dark orange background */
+document.body.style.backgroundColor = '#FF8C00';
+/* make a 300px by 300px box in the middle with the color FFC000 */
+var box = document.createElement('div');
+box.style.width = '300px';
+box.style.height = '500px';
+box.style.backgroundColor = '#FFC000';
+box.style.position = 'absolute';
+box.style.top = '50%';
+box.style.left = '50%';
+box.style.marginLeft = '-350px';
+box.style.marginTop = '-250px';
+document.body.appendChild(box);
+box.style.width = '700px';
+box.style.fontSize = '25px'
+box.innerHTML = 'Welcome to story generator. <br> press new story button for a random story <br> Change the fontsize using the right bottom text box then hit enter.'
+/* Make the title for the story genrator */
+var title = document.createElement('div');
+title.innerHTML = 'Story Generator';
+title.style.fontSize = '50px';
+title.style.position = 'absolute';
+title.style.top = '0';
+title.style.left = '50%';
+title.style.marginLeft = '-160px';
+document.body.appendChild(title);
+</script>
+</html>
